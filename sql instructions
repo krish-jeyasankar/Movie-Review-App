@@ -1,0 +1,14 @@
+SELECT * FROM users WHERE email = ?
+SELECT * FROM movies
+SELECT * FROM reviews WHERE movie_id = ?
+
+
+
+UPDATE reviews SET title = ?, rating = ?, text = ? WHERE id = ?
+
+DELETE FROM reviews WHERE id = ?
+
+
+SELECT reviews.*, users.name 
+FROM reviews 
+JOIN users ON reviews.user_id = users.id

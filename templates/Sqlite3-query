@@ -1,0 +1,10 @@
+c.execute("""
+    SELECT reviews.*, users.name 
+    FROM reviews 
+    JOIN users ON reviews.user_id = users.id
+    ORDER BY reviews.id DESC
+""")
+
+
+ALTER TABLE movies ADD COLUMN description TEXT;
+ALTER TABLE movies ADD COLUMN year INTEGER;

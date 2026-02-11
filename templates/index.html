@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codynn Cinema - Your movie watching companion</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-film"></i> Codynn
+                <span class="logo-accent">Cinema</span>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}" class="active">Home</a></li>
+                    <li><a href="#">Movies</a></li>
+                    <li><a href="#">TV Shows</a></li>
+                    <li><a href="#">Watchlist</a></li>
+                    <li><a href="{{ url_for('review') }}">Review</a></li>
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    
+
+
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="search-container">
+        <input type="text" class="search-box" placeholder="search for movies, TV shows, actors...">
+        <i class="fas fa-search search-icon"></i>
+    </div>
+
+    <main>
+        <section class="featured-section">
+            <div class="featured-movie">
+                <img class="featured-backdrop"
+                     src="https://images.alphacoders.com/100/thumb-1920-1002901.jpg"
+                     alt="Avengers Endgame Wallpaper">
+
+                <div class="featured-overlay">
+                    <h1 class="featured-title">The Latest Blockbuster Movie</h1>
+
+                    <p class="featured-description">
+                        Experience the epic adventure that critics are calling 
+                        "the must-see film of the year." Join our heroes as they embark 
+                        on a journey that will change their lives forever.
+                    </p>
+
+                    <div class="featured-actions">
+                        <a href="#" class="btn btn-primary">
+                            <i class="fas fa-play"></i> Watch Trailer
+                        </a>
+
+                        <a href="#" class="btn btn-secondary">
+                            <i class="fas fa-info-circle"></i> More Info
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="category-heading">
+                <h2 class="category-title">Popular Movies</h2>
+                <a href="#" class="view-all">View All</a>
+            </div>
+
+            <div class="movie-grid" id="movieGrid"></div>
+              
+        </section>
+
+       
+    </main>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+<!-- Register Service Worker -->
+<script>
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/static/service-worker.js");
+}
+</script>
+
+</body>
+</html>
+
+    

@@ -1,0 +1,4 @@
+-- database: /Users/krish/Library/CloudStorage/OneDrive-NSWDepartmentofEducation/Software engineering/Movie-Review-App/database.db
+
+SELECT * FROM movies;
+ALTER TABLE movies ADD COLUMN description TEXT;

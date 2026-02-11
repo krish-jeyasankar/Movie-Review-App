@@ -1,0 +1,104 @@
+User Login
+
+
+Algorithm LoginUser
+    Input: email, password
+    Output: login success or failure
+
+    BEGIN
+        Retrieve user record WHERE email = input email
+        IF no user found THEN
+            Display "Invalid email or password"
+            STOP
+        ENDIF
+
+        Compare hashed password with stored password
+        IF passwords match THEN
+            Store user_id in session
+            Redirect to Home Page
+        ELSE
+            Display "Invalid email or password"
+        ENDIF
+    END
+
+
+User Registration
+
+Algorithm RegisterUser
+    Input: name, email, password
+    Output: account created or error
+
+    BEGIN
+        Check if email already exists in database
+        IF email exists THEN
+            Display "Email already registered"
+            STOP
+        ENDIF
+
+        Hash the password
+        Insert new user record into users table
+        Display "Account created successfully"
+        Redirect to Login Page
+    END
+
+   
+    Create Review
+    
+Algorithm CreateReview
+    Input: user_id, movie_id, title, rating, text
+    Output: review created
+
+    BEGIN
+        IF user is not logged in THEN
+            Redirect to Login Page
+            STOP
+        ENDIF
+
+        Validate rating is between 1 and 5
+        Validate title and text are not empty
+
+        Insert review into reviews table
+        Display "Review submitted"
+        Redirect to Reviews Page
+    END
+
+
+    Edit Review
+
+    xAlgorithm EditReview
+    Input: review_id, new_title, new_rating, new_text
+    Output: review updated
+
+    BEGIN
+        Retrieve review WHERE id = review_id
+
+        IF logged-in user_id != review.user_id THEN
+            Display "Access denied"
+            STOP
+        ENDIF
+
+        Update review record with new values
+        Display "Review updated"
+        Redirect to Review Detail Page
+    END
+
+
+  Offline handling service worker
+  
+  Algorithm ServiceWorkerFetch
+    Input: network request
+    Output: cached response or offline page
+
+    BEGIN
+        Try to fetch resource from network
+        IF network fetch succeeds THEN
+            Return network response
+        ELSE
+            Check if requested file exists in cache
+            IF cached version exists THEN
+                Return cached file
+            ELSE
+                Return offline.html
+            ENDIF
+        ENDIF
+    END

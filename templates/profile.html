@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Profile - Codynn Cinema</title>
+
+    <!-- PWA Manifest (STEP 4) -->
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: Montserrat, sans-serif;
+        }
+
+        .profile-container {
+            width: 70%;
+            margin: 40px auto;
+            background: #111;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255,255,255,0.1);
+        }
+
+        h2, h3 {
+            color: #f1c40f;
+        }
+
+        .info-box {
+            background: #222;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .review-box {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #333;
+        }
+
+        .review-box h4 {
+            margin: 0;
+            color: #f1c40f;
+        }
+
+        a {
+            color: #f1c40f;
+            text-decoration: none;
+        }
+
+        .edit-btn {
+            color: #3498db;
+            margin-right: 10px;
+        }
+
+        .delete-btn {
+            color: #e74c3c;
+        }
+
+        .logout-btn {
+            float: right;
+            color: #f1c40f;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="profile-container">
+
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="#">Movies</a></li>
+            <li><a href="#">TV Shows</a></li>
+            <li><a href="{{ url_for('review') }}">Review</a></li>
+
+            {% if session.get('user_id') %}
+                <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            {% else %}
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <h2>Your Profile</h2>
+
+    <div class="info-box">
+        <p><strong>Name:</strong> {{ user['name'] }}</p>
+        <p><strong>Email:</strong> {{ user['email'] }}</p>
+    </div>
+
+    <h3>Your Reviews</h3>
+
+    {% if reviews %}
+        {% for r in reviews %}
+            <div class="review-box">
+                <h4>{{ r['title'] }}</h4>
+                <p>Date: {{ r['date'] }}</p>
+                <p>Rating: {{ r['rating'] }}/5</p>
+                <p>{{ r['text'] }}</p>
+
+                <a href="{{ url_for('edit_review', review_id=r['id']) }}" class="edit-btn">Edit</a>
+                <a href="{{ url_for('delete_review', review_id=r['id']) }}" class="delete-btn">Delete</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>You haven't written any reviews yet.</p>
+    {% endif %}
+
+</div>
+
+<!-- STEP 5: Register Service Worker -->
+<script>
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/static/service-worker.js");
+}
+</script>
+
+</body>
+</html>

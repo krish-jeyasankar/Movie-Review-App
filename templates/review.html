@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reviews</title>
+
+    
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<nav>
+    <ul>
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="#">Movies</a></li>
+        <li><a href="#">TV Shows</a></li>
+        <li><a href="{{ url_for('review') }}">Review</a></li>
+
+        {% if session.get('user_id') %}
+            <li><a href="{{ url_for('profile') }}">Profile</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        {% else %}
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+<h2>Welcome, {{ user }}</h2>
+<a href="{{ url_for('logout') }}">Logout</a>
+
+<h3>Write a Review</h3>
+
+<form method="POST">
+    <input type="text" name="title" placeholder="Review Title" required>
+
+    <select name="rating">
+        <option value="1">1 ★</option>
+        <option value="2">2 ★</option>
+        <option value="3">3 ★</option>
+        <option value="4">4 ★</option>
+        <option value="5">5 ★</option>
+    </select>
+
+    <textarea name="text" placeholder="Write your review..." required></textarea>
+
+    <button type="submit">Submit Review</button>
+</form>
+
+<h3>All Reviews</h3>
+
+{% for r in reviews %}
+<div style="border:1px solid #ccc; padding:10px; margin:10px 0;">
+    <h4>
+        <a href="{{ url_for('review_detail', review_id=r['id']) }}">
+            {{ r['title'] }}
+        </a>
+    </h4>
+
+    <p><strong>{{ r['name'] }}</strong> — {{ r['date'] }}</p>
+    <p>Rating: {{ r['rating'] }}/5</p>
+    <p>{{ r['text'] }}</p>
+
+    {% if r['user_id'] == session['user_id'] %}
+        <a href="{{ url_for('edit_review', review_id=r['id']) }}" style="margin-right:10px; color:blue;">Edit</a>
+        <a href="{{ url_for('delete_review', review_id=r['id']) }}" style="color:red;">Delete</a>
+    {% endif %}
+</div>
+{% endfor %}
+
+<!-- STEP 5: Register Service Worker -->
+<script>
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/static/service-worker.js");
+}
+</script>
+
+</body>
+</html>
+
