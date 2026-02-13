@@ -1,1 +1,1 @@
-To setup the web app, file 'app.py' must be running in terminal, (python app.py), then click on http://127.0.0.1:5000 on the device either (mobile, desktop, tablet).
+To setup the web app, file 'app.py' must be running in terminal, (python app.py), then click on http://127.0.0.1:5001 on laptop device and click on http://10.224.162.40:5001 on (mobile, desktop, tablet)
